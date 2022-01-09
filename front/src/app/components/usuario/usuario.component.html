@@ -1,0 +1,124 @@
+<div class="container">
+<h3>{{page_title}}</h3>
+<div class="alert alert-success col-md-12 mt-3" *ngIf="status == 'success'">
+  {{mensaje}}
+</div>
+<div class="alert alert-danger" *ngIf="status == 'error'">
+  {{mensaje}}
+</div>
+ <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">
+            <button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" [attr.data-bs-target]="'#modalRegister'" >
+              Agregar Usuarios
+            </button>
+        <!-- Modal para registro de nuevos usuarios-->
+            <div class="modal fade" [attr.id]="'modalRegister'"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Registro de usuarios</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="alert alert-success col-md-12 mt-3" *ngIf="status == 'success'">
+                      {{mensaje}}
+                    </div>
+                    <div class="alert alert-danger" *ngIf="status == 'error'">
+                      {{mensaje}}
+                    </div>
+                  <div class="modal-body">
+                      <div class="container-fluid">
+                        <form #registerForm="ngForm" class="col-md-12 ml-0 pl-0">
+                        <div class="row">
+                                <div class="col-md-6">
+                                  <label for="persona_id">Seleccione una persona:</label>
+                                  <select name="persona_id" #personaid="ngModel" [(ngModel)] = "usuario.persona_id" class="form-select">
+                                    <option selected>-- Seleccione una --</option>
+                                    <option *ngFor="let persona of resultadoPersona" value="{{persona.id}}">
+                                      {{persona.nombre}} {{persona.apellido}}
+                                    </option>
+                                  </select>
+                                  <label for="rol_id">Seleccione un rol:</label>
+                                  <select name="rol_id" #rolid="ngModel" [(ngModel)] = "usuario.rol_id" class="form-select">
+                                    <option *ngFor="let rol of resultadoRol" value="{{rol.id}}">
+                                      {{rol.rol}}
+                                    </option>
+                                  </select>
+                                  <label for="usuario">Usuario</label>
+                                  <input type="text" name="user" class="form-control" #user="ngModel"
+                                    [(ngModel)]="usuario.usuario"  required>
+                                    <small *ngIf="!user.valid && user.touched"
+                                    class="invalid-feedback d-block">
+                                      Debe ingresar un nombre de usuario
+                                    </small>
+                                    <label for="clave">Clave:</label>
+                                  <input type="text" name="clave" class="form-control" #clave="ngModel"
+                                    [(ngModel)]="usuario.clave"  required>
+                                    <small *ngIf="!clave.valid && clave.touched"
+                                    class="invalid-feedback d-block">
+                                      Debe ingresar una clave
+                                    </small>
+                                  </div>
+                                </div>
+                        </form>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" (click)="reload()" class="btn btn-warning" data-bs-dismiss="modal">Cerrar</button>
+                    <input type="submit" (click)="store(registerForm)" value="Registrar" class="btn btn-success ms-2" [disabled]=registerForm.invalid>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </th>
+      <th scope="col">
+        <input type="text" name="name" [(ngModel)]="bq" (ngModelChange)="buscar()" placeholder="Buscar usuario..." class="form-control" >
+      </th>
+    </tr>
+  </thead>
+  </table>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre completo</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Rol</th>
+      <th scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usuario of resultado | paginate: { itemsPerPage: 10, currentPage: p }">
+        <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+        <td>{{usuario.usuario}}</td>
+        <td>{{usuario.rol}}</td>
+        <td>
+        <a type="button" [routerLink]="['#']" class="btn btn-primary ms-2">Editar</a>
+          <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" [attr.data-bs-target]="'#modalBorrar'+usuario.id" >
+              Borrar
+            </button>
+            <!-- MODAL DE CONFIRMACIÓN DE ELIMINACIÓN -->
+            <div class="modal fade" [attr.id]="'modalBorrar'+usuario.id"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Seguro quieres borrar el usuario?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    ¿Vas a borrar definitivamente el usuario de {{usuario.nombre}} {{usuario.apellido}} ?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                    <a  (click)="destroy(usuario.id)" class="btn btn-danger ms-2" data-bs-dismiss="modal">Borrar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FIN MODAL DE CONFIRMACIÓN DE ELIMINACIÓN-->
+        </td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

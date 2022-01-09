@@ -1,0 +1,25 @@
+@startuml VEHICULOS
+left to right direction
+skinparam packageStyle rectangle
+actor Est_Servicio as ES
+actor Merlin as ML
+actor Documental as DC
+actor auxContable as AC
+actor usBasico as UB
+actor bd_cootrasana as BD
+actor Koherencia as KH
+rectangle KRATYLO_VEHICULOS { 
+   (gestionar conductores)-up-DC
+   (gestionar vehiculos)-up-DC
+   (gestionar asociados)-up- DC
+   ES -- (reportar combustible)   
+   (reportar combustible)--(archivo CSV combustible)
+   BD <-- (webService ingresos)  
+   (archivo CSV combustible)
+   ML--(reportar gastos serviteca)
+   (reportar gastos serviteca)..(archivo CSV serviteca)
+   (archivo CSV serviteca)--AC
+   KH -->(Reportar ingresos)
+   
+}
+@enduml

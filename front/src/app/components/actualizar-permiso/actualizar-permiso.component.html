@@ -1,0 +1,84 @@
+<div class="container">
+<table class="table">
+<thead>
+<tr>
+<td>
+<h3>{{page_title}}</h3>
+<div class="alert alert-success col-md-12 mt-3" *ngIf="status == 'success'">
+  {{mensaje}}
+</div>
+<div class="alert alert-danger" *ngIf="status == 'error'">
+  {{mensaje}}
+</div>
+</td>
+  </tr>
+    <tr>
+      <th scope="col">
+      <form #actualizaForm="ngForm" (ngSubmit)="onSubmit(actualizaForm)" class="col-md-8 ml-0 pl-0" >
+          <div class="row">
+              <div class="col-md-4">
+              <label for="tipo">Empleado:</label>
+              <input type="text" name="empleado" value="{{nombre}} {{apellido}}" class="form-control" disabled>
+              <label for="tipo">Tipo:</label>
+                <select disabled class="form-select" name="tipo" required #tipo="ngModel"
+                  [(ngModel)]="permiso.tipo">
+                  <option value="VACACIONES">VACACIONES</option>
+                  <option value="LICENCIA">LICENCIA</option>
+                  <option value="CALAMIDAD">CALAMIDAD</option>
+                  <option value="PERMISO">PERMISO</option>
+                </select>
+                <small *ngIf="!tipo.valid && tipo.touched"
+                  class="invalid-feedback d-block">
+                    Debe seleccionar un tipo de permiso
+                  </small>
+                  <label for="motivo">Motivo de permiso:</label>
+                <select disabled class="form-select" name="motivo" required #motivo="ngModel"
+                  [(ngModel)]="permiso.motivo">
+                  <option value="CITA POR ACCIDENTE DE TRABAJO">CITA POR ACCIDENTE DE TRABAJO</option>
+                  <option value="CITA EPS">CITA EPS</option>
+                  <option value="URGENCIA MEDICA">URGENCIA MEDICA</option>
+                  <option value="DILIGENCIAS BANCARIAS">DILIGENCIAS BANCARIAS</option>
+                  <option value="MATRICULA HIJOS">MATRICULA HIJOS</option>
+                  <option value="REUNION ESCOLAR">REUNION ESCOLAR</option>
+                  <option value="ROBO">ROBO O ATRACO</option>
+                  <option value="MUERTE">MUERTE DE UN FAMILIAR</option>
+                  <option value="VACACIONES">VACACIONES</option>
+                </select>
+                <small *ngIf="!motivo.valid && motivo.touched"
+                  class="invalid-feedback d-block">
+                    Debe seleccionar un motivo
+                  </small>
+                  <label for="fechanac">Fecha inicial</label>
+                <input disabled type="date" name="fechai" class="form-control" placeholder="yyyy-mm-dd" #fechai="ngModel"
+                  [(ngModel)]="permiso.fechai" required>
+                  <small *ngIf="!fechai.valid && fechai.touched"
+                  class="invalid-feedback d-block">
+                    Debe seleccionar una fecha de inicio
+                  </small>
+                  <label for="fechanac">Fecha Final</label>
+                <input disabled type="date" name="fechaf" class="form-control" placeholder="yyyy-mm-dd" #fechaf="ngModel"
+                  [(ngModel)]="permiso.fechaf" required>
+                  <small *ngIf="!fechaf.valid && fechaf.touched"
+                  class="invalid-feedback d-block">
+                    Debe seleccionar una fecha de terminacion
+                  </small>
+                  <label for="fechanac">Estado</label>
+                  <select class="form-select" name="estado" required #estado="ngModel"[(ngModel)]="permiso.estado">
+                      <option value="APROBADO">APROBADO</option>
+                      <option value="RECHAZADO">RECHAZADO</option>
+                      <option value="PENDIENTE">PENDIENTE</option>
+                    </select>
+                  <label for="fechanac">Observaciones</label>
+                  <textarea name="observaciones" #observaciones="ngModel" [(ngModel)]="permiso.observaciones" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+          </div><br>
+          <input type="button" [routerLink]="['/permiso']"  value="Volver" class="btn btn-warning ms-2">
+          <input type="submit"  value="Actualizar" class="btn btn-success ms-2" [disabled]="actualizaForm.invalid">
+        </form>
+        <br>
+      </th>
+      </tr>
+      </thead>
+      </table>
+      </div>
+

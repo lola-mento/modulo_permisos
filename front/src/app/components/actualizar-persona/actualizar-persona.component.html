@@ -1,0 +1,124 @@
+<div class="container">
+<table class="table">
+<thead>
+<tr>
+<td>
+<h3>{{page_title}}</h3>
+<div class="alert alert-success col-md-12 mt-3" *ngIf="status == 'success'">
+  {{mensaje}}
+</div>
+<div class="alert alert-danger" *ngIf="status == 'error'">
+  {{mensaje}}
+</div>
+</td>
+  </tr>
+    <tr>
+      <th scope="col">
+      <form #actualizaForm="ngForm" (ngSubmit)="onSubmit(actualizaForm)" class="col-md-8 ml-0 pl-0" >
+          <div class="row">
+              <div class="col-md-4">
+                  <label for="cedula">Cedula</label>
+                  <input type="text" name="cedula" class="form-control" #cedula="ngModel"
+                    [(ngModel)]="persona.cedula" maxlength="10" minlength="7" required pattern="[0-9]+">
+                    <small *ngIf="!cedula.valid && cedula.touched"
+                    class="invalid-feedback d-block">
+                      La cédula debe tener entre 7 y 10 números.
+                    </small>
+                  <label for="nombre">Nombre</label>
+                  <input type="text" name="nombre" class="form-control" class="form-control" #nombre="ngModel"
+                    [(ngModel)]="persona.nombre" required pattern="[a-z A-Z]+">
+                    <small *ngIf="!nombre.valid && nombre.touched"
+                    class="invalid-feedback d-block">
+                      Escribe correctamente el nombre.
+                    </small>
+                  <label for="apellido">Apellido</label>
+                  <input type="text" name="apellido" class="form-control" class="form-control" #apellido="ngModel"
+                    [(ngModel)]="persona.apellido" required pattern="[a-z A-Z]+">
+                    <small *ngIf="!apellido.valid && apellido.touched"
+                    class="invalid-feedback d-block">
+                      Escribe correctamente el apellido.
+                    </small>
+                  <label for="fijo">Fijo</label>
+                  <input type="text" name="fijo" class="form-control" #fijo="ngModel"
+                    [(ngModel)]="persona.fijo">
+                  <label for="fijo">Celular</label>
+                  <input type="text" name="celular" class="form-control" #celular="ngModel"
+                    [(ngModel)]="persona.celular" maxlength="10" minlength="10" required pattern="[0-9]+">
+                    <small *ngIf="!celular.valid && celular.touched"
+                    class="invalid-feedback d-block">
+                      Escribe correctamente el celular.
+                    </small>
+                  <label for="direccion">Dirección</label>
+                  <input type="text" name="direccion" class="form-control" #direccion="ngModel"
+                    [(ngModel)]="persona.direccion" required>
+                    <small *ngIf="!direccion.valid && direccion.touched"
+                    class="invalid-feedback d-block">
+                      Debe escribir una dirección
+                    </small>
+              </div>
+              <div class="col-md-4">
+                  <label for="municipio">Municipio</label>
+                  <select class="form-select" name="municipio" required #municipio="ngModel"
+                    [(ngModel)]="persona.municipio">
+                    <option value="BELLO">BELLO</option>
+                    <option value="CALDAS">CALDAS</option>
+                    <option value="COPACABANA">COPACABANA</option>
+                    <option value="ENVIGADO">ENVIGADO</option>
+                    <option value="GIRARDOTA">GIRARDOTA</option>
+                    <option value="ITAGUI">ITAGUI</option>
+                    <option value="LA ESTRELLA">LA ESTRELLA</option>
+                    <option value="MEDELLIN">MEDELLIN</option>
+                    <option value="PRADO">SAN ANTONIO DE PRADO</option>
+                    <option value="SABANETA">SABANETA</option>
+                  </select>
+                  <small *ngIf="!municipio.valid && municipio.touched"
+                    class="invalid-feedback d-block">
+                      Debe seleccionar un municipio
+                    </small>
+                  <label for="barrio">Barrio</label>
+                  <input type="text" name="barrio" class="form-control" #barrio="ngModel"
+                    [(ngModel)]="persona.barrio" required>
+                    <small *ngIf="!barrio.valid && barrio.touched"
+                    class="invalid-feedback d-block">
+                      Debe escribir el nombre del barrio correctamente
+                    </small>
+                  <label for="fechanac">Fecha de nacimiento</label>
+                  <input type="date" name="fechanac" class="form-control" placeholder="yyyy-mm-dd" #fechanac="ngModel"
+                    [(ngModel)]="persona.fechanac" required>
+                    <small *ngIf="!fechanac.valid && fechanac.touched"
+                    class="invalid-feedback d-block">
+                      Debe seleccionar una fecha de nacimiento
+                    </small>
+                  <label for="estcivil">Estado civil</label>
+                  <select name="estcivil" class="form-select" required #estcivil="ngModel"
+                    [(ngModel)]="persona.estcivil">
+                    <option value="CASADO">CASADO</option>
+                    <option value="SOLTERO">SOLTERO</option>
+                    <option value="VIUDO">VIUDO</option>
+                    <option value="UNION LIBRE">UNION LIBRE</option>
+                    <option value="OTRO">OTRO</option>
+                  </select>
+                    <small *ngIf="!estcivil.valid && estcivil.touched"
+                    class="invalid-feedback d-block">
+                      Debe seleccionar un estado civil
+                    </small>
+                  <label for="email">Email</label>
+                  <input type="text" name="email" class="form-control" #email="ngModel"
+                  [(ngModel)]="persona.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+                  <small *ngIf="!email.valid && email.touched"
+                  class="invalid-feedback d-block">
+                  El Email no es valido
+                </small>
+              </div>
+          </div><br>
+          <input type="button" [routerLink]="['/persona']"  value="Volver" class="btn btn-warning ms-2">
+          <input type="submit"  value="Actualizar" class="btn btn-success ms-2" [disabled]="actualizaForm.invalid">
+        </form>
+        <br>
+      </th>
+      </tr>
+      </thead>
+      </table>
+      </div>
+
+

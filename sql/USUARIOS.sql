@@ -1,0 +1,20 @@
+CREATE TABLE rol
+(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    rol VARCHAR(30) NOT NULL,
+    created_at DATETIME DEFAULT NULL,
+    updated_at DATETIME DEFAULT NULL
+);
+//ESTA TABLA EXIGE LA TABLA PERSONA
+CREATE TABLE users
+(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    rol_id INT NOT NULL,
+    persona_id INT NOT NULL,
+    usuario VARCHAR(30) NOT NULL,
+    clave VARCHAR(40),
+    created_at DATETIME DEFAULT NULL,
+    updated_at DATETIME DEFAULT NULL,
+    FOREIGN KEY (rol_id) REFERENCES rol(id),
+    FOREIGN KEY (persona_id) REFERENCES persona(id)
+);

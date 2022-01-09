@@ -1,0 +1,41 @@
+<div class="container">
+<div class="col-md-12 mt-3">
+<h1>{{page_title}}</h1>
+<p>
+  Ingreso a la plataforma SITCO
+</p>
+<div class="alert alert-success col-md-12 mt-3" *ngIf="status == 'success'">
+  {{mensaje}}
+</div>
+<div class="alert alert-danger" *ngIf="status == 'error'">
+  {{mensaje}}
+</div>
+<form class="col-md-5 ml-0 pl-0" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+  <div class="form-group">
+      <label for="usuario" >Usuario</label>
+      <input type="text" name="usuario" class="form-control" #usuario="ngModel"
+      [(ngModel)]="user.usuario" required>
+      <small *ngIf="!usuario.valid && usuario.touched"
+      class="invalid-feedback d-block">
+      El usuario no es válido
+    </small>
+  </div>
+
+  <div class="form-group">
+      <label for="clave">Clave</label>
+      <input type="password" name="clave" autocomplete="off" class="form-control" #clave="ngModel"
+      [(ngModel)]="user.clave" required>
+      <small *ngIf="!clave.valid && clave.touched"
+      class="invalid-feedback d-block">
+      La contraseña no es valida
+    </small>
+    </div>
+
+    <br>
+    <input type="submit" value="Identificarse" class="btn btn-success"
+    [disabled]=loginForm.invalid/>
+
+</form>
+
+</div>
+</div>

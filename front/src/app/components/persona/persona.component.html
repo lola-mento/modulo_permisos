@@ -1,0 +1,195 @@
+<div class="container">
+<h3>{{page_title}}</h3>
+
+<div class="alert alert-success col-md-12 mt-3" *ngIf="status == 'success'">
+  {{mensaje}}
+</div>
+<div class="alert alert-danger" *ngIf="status == 'error'">
+  {{mensaje}}
+</div>
+ <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">
+            <button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" [attr.data-bs-target]="'#modalRegister'" >
+              Agregar persona
+            </button>
+        <!-- Modal para registro de nuevas personas-->
+            <div class="modal fade" [attr.id]="'modalRegister'"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Registro de personas</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="alert alert-success col-md-12 mt-3" *ngIf="status == 'success'">
+                      {{mensaje}}
+                    </div>
+                    <div class="alert alert-danger" *ngIf="status == 'error'">
+                      {{mensaje}}
+                    </div>
+                  <div class="modal-body">
+                      <div class="container-fluid">
+                        <form #registerForm="ngForm" class="col-md-12 ml-0 pl-0">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="cedula">Cedula</label>
+                                    <input type="text" name="cedula" class="form-control" #cedula="ngModel"
+                                      [(ngModel)]="persona.cedula" maxlength="10" minlength="7" required pattern="[0-9]+">
+                                      <small *ngIf="!cedula.valid && cedula.touched"
+                                      class="invalid-feedback d-block">
+                                        La cédula debe tener entre 7 y 10 números.
+                                      </small>
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" name="nombre" class="form-control" class="form-control" #nombre="ngModel"
+                                      [(ngModel)]="persona.nombre" required pattern="[a-z A-Z]+">
+                                      <small *ngIf="!nombre.valid && nombre.touched"
+                                      class="invalid-feedback d-block">
+                                        Escribe correctamente el nombre.
+                                      </small>
+                                    <label for="apellido">Apellido</label>
+                                    <input type="text" name="apellido" class="form-control" class="form-control" #apellido="ngModel"
+                                      [(ngModel)]="persona.apellido" required pattern="[a-z A-Z]+">
+                                      <small *ngIf="!apellido.valid && apellido.touched"
+                                      class="invalid-feedback d-block">
+                                        Escribe correctamente el apellido.
+                                      </small>
+                                    <label for="fijo">Fijo</label>
+                                    <input type="text" name="fijo" class="form-control" #fijo="ngModel"
+                                      [(ngModel)]="persona.fijo">
+                                    <label for="fijo">Celular</label>
+                                    <input type="text"  name="celular" class="form-control" #celular="ngModel"
+                                      [(ngModel)]="persona.celular" maxlength="10" minlength="10" required pattern="[0-9]+">
+                                      <small *ngIf="!celular.valid && celular.touched"
+                                      class="invalid-feedback d-block">
+                                        Escribe correctamente el celular.
+                                      </small>
+                                    <label for="direccion">Dirección</label>
+                                    <input type="text" name="direccion" class="form-control" #direccion="ngModel"
+                                      [(ngModel)]="persona.direccion" required>
+                                      <small *ngIf="!direccion.valid && direccion.touched"
+                                      class="invalid-feedback d-block">
+                                        Debe escribir una dirección
+                                      </small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="municipio">Municipio</label>
+                                    <select class="form-select" name="municipio" required #municipio="ngModel"
+                                      [(ngModel)]="persona.municipio">
+                                      <option value="BELLO">BELLO</option>
+                                      <option value="CALDAS">CALDAS</option>
+                                      <option value="COPACABANA">COPACABANA</option>
+                                      <option value="ENVIGADO">ENVIGADO</option>
+                                      <option value="GIRARDOTA">GIRARDOTA</option>
+                                      <option value="ITAGUI">ITAGUI</option>
+                                      <option value="LA ESTRELLA">LA ESTRELLA</option>
+                                      <option value="MEDELLIN">MEDELLIN</option>
+                                      <option value="PRADO">SAN ANTONIO DE PRADO</option>
+                                      <option value="SABANETA">SABANETA</option>
+                                    </select>
+                                    <small *ngIf="!municipio.valid && municipio.touched"
+                                      class="invalid-feedback d-block">
+                                        Debe seleccionar un municipio
+                                      </small>
+                                    <label for="barrio">Barrio</label>
+                                    <input type="text" name="barrio" class="form-control" #barrio="ngModel"
+                                      [(ngModel)]="persona.barrio" required>
+                                      <small *ngIf="!barrio.valid && barrio.touched"
+                                      class="invalid-feedback d-block">
+                                        Debe escribir el nombre del barrio correctamente
+                                      </small>
+                                    <label for="fechanac">Fecha de nacimiento</label>
+                                    <input type="date" name="fechanac" class="form-control" placeholder="yyyy-mm-dd" #fechanac="ngModel"
+                                      [(ngModel)]="persona.fechanac" required>
+                                      <small *ngIf="!fechanac.valid && fechanac.touched"
+                                      class="invalid-feedback d-block">
+                                        Debe seleccionar una fecha de nacimiento
+                                      </small>
+                                    <label for="estcivil">Estado civil</label>
+                                    <select name="estcivil" class="form-select" required #estcivil="ngModel"
+                                      [(ngModel)]="persona.estcivil">
+                                      <option value="CASADO">CASADO</option>
+                                      <option value="SOLTERO">SOLTERO</option>
+                                      <option value="VIUDO">VIUDO</option>
+                                      <option value="UNION LIBRE">UNION LIBRE</option>
+                                      <option value="OTRO">OTRO</option>
+                                    </select>
+                                     <small *ngIf="!estcivil.valid && estcivil.touched"
+                                      class="invalid-feedback d-block">
+                                        Debe seleccionar un estado civil
+                                      </small>
+                                    <label for="email">Email</label>
+                                    <input type="text" name="email" class="form-control" #email="ngModel"
+                                    [(ngModel)]="persona.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+                                    <small *ngIf="!email.valid && email.touched"
+                                    class="invalid-feedback d-block">
+                                    El Email no es valido
+                                  </small>
+                                </div>
+                            </div>
+                          </form>
+                        </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" (click)="reload()" class="btn btn-warning" data-bs-dismiss="modal">Cerrar</button>
+                    <input type="submit" (click)="store(registerForm)" value="Registrar" class="btn btn-success ms-2" [disabled]=registerForm.invalid>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </th>
+      <th scope="col">
+        <input type="text" name="name" [(ngModel)]="bq" (ngModelChange)="buscar()" placeholder="Buscar persona..." class="form-control" >
+      </th>
+    </tr>
+  </thead>
+  </table>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Cedula</th>
+      <th scope="col">Nombre completo</th>
+      <th scope="col">Fijo</th>
+      <th scope="col">Celular</th>
+      <th scope="col">Dirección</th>
+      <th scope="col">Accion</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let persona of resultado | paginate: { itemsPerPage: 10, currentPage: p }">
+        <td>{{persona.cedula}}</td>
+        <td>{{persona.nombre}} {{persona.apellido}}</td>
+        <td>{{persona.fijo}}</td>
+        <td>{{persona.celular}}</td>
+        <td>{{persona.direccion}}</td>
+        <td>
+        <a type="button" [routerLink]="['/actualizarPersona',persona.id]" class="btn btn-primary ms-2">Editar</a>
+          <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" [attr.data-bs-target]="'#modalBorrar'+persona.id" >
+              Borrar
+            </button>
+            <!-- MODAL DE CONFIRMACIÓN DE ELIMINACIÓN -->
+            <div class="modal fade" [attr.id]="'modalBorrar'+persona.id"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Seguro quieres borrar la persona?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Vas a borrar definitivamente a: {{persona.nombre}} {{persona.apellido}}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                    <a  (click)="destroy(persona.id)" class="btn btn-danger ms-2" data-bs-dismiss="modal">Borrar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FIN MODAL DE CONFIRMACIÓN DE ELIMINACIÓN-->
+        </td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
